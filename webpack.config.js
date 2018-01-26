@@ -4,9 +4,10 @@ const HtmlWebpackPlugin  = require('html-webpack-plugin');
 const ExtractTextPlugin  = require('extract-text-webpack-plugin');
 const htmlTemplate       = require('html-webpack-template');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const BUILD_DIR         = path.resolve(__dirname, 'public/'); //(the 'out', where
-const APP_DIR           = path.resolve(__dirname, 'app/javascripts/components'); //where jsx lives (the 'in', where my react components live)
+const BUILD_DIR         = path.resolve(__dirname, 'public');
+const APP_DIR           = path.resolve(__dirname, 'app/javascript/components');
 
 const fontLoaderConfig = {
   name:  '/fonts/[name].[ext]',
@@ -14,7 +15,7 @@ const fontLoaderConfig = {
 };
 
 // let's bring in local environmental variables
-
+if (!('NODE_ENV' in process.env)) require('dotenv').config();
 
 const config = {
   entry: {
@@ -22,8 +23,8 @@ const config = {
     vendor: ['axios', 'react', 'react-dom', 'prop-types'],
   },
   output: {
-    path:     BUILD_DIR,
     filename: 'js/[name].js',
+    path:     BUILD_DIR,
   },
   cache:   true,
   devtool: 'inline-source-map',
@@ -39,7 +40,7 @@ const config = {
       names:     ['common', 'vendor'],
 
     }),
-    new CleanWebpackPlugin(['app/public']),
+    new CleanWebpackPlugin(['assets']),
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
@@ -48,9 +49,8 @@ const config = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
       },
     }),
-
     new HtmlWebpackPlugin({
-      title:      'React To Do',
+      title:      'charity',
       xhtml:      true,
       inject:     false,
       template:   htmlTemplate,
@@ -59,6 +59,7 @@ const config = {
     new ExtractTextPlugin('/css/[name].css', {
       allChunks: true,
     }),
+    // new BundleAnalyzerPlugin(),
   ],
 
   module: {
@@ -159,7 +160,6 @@ if (process.env &&
 
   config.plugins = config.plugins.concat(prodPlugins);
   config.cache = false;
-  config.debug = false;
   config.devtool = undefined;
 }
 
