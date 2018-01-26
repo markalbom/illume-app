@@ -5,19 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-Charity.delete_all
-[
-
-  {
-  "name": "Red Cross"
-  },
-
-  {"name": "MSK"
-  }
-
-
-
-].each do |charity|
-  Charity.create(charity)
-end
