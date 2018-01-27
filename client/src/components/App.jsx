@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SearchForm from './SearchForm';
-import ListCharities from './ListCharities';
+import CharityList from './CharityList';
 import './App.css';
+
+const unzipArray = (arr, field) => {
+  return arr.reduce((coll, item) => {
+    coll[item[field]] =  item;
+    return coll;
+  }, {})
+};
+
+
+
+
 
 class App extends Component {
   constructor() {
@@ -12,16 +23,14 @@ class App extends Component {
       inputs:{query: "", selectedCity: ""},
       query: '',
       selectedCity: '',
-      apiResults: null,
-      charityName: null,
-      tagLine: null,
-      rating: null
+      charityList: null,
     }
 
   this.handleInputChange = this.handleInputChange.bind(this);
   this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
 
   }
+
 
 
   // assigns the value of what is entered in input field for city and query, puts it in state so that it can be accessed by other components
@@ -41,16 +50,15 @@ class App extends Component {
   handleSearchSubmit(event) {
     event.preventDefault();
     console.log('submittin')
-    axios.post(`http://localhost:3000/api/search/`, {query: this.state.query, selectedCity: this.state.selectedCity})
-    .then (res => {
+    axios.post(`/api/search/`, {query: this.state.query, selectedCity: this.state.selectedCity})
+    .then(({ data:{ response_data: res } }) => JSON.parse(res))
+    .then((res) => {
       this.setState({
         apiDataLoaded: true,
-        apiResults: res.data.response_data,
-        charityName: res.data.response_data.charityName,
-        tagLine: res.data.response_data[0].tagLine,
-        rating: res.data.response_data[0].currentRating.score
+        charityList: unzipArray(res, 'orgID'),
       })
     })
+    .catch(err => {debugger} )
   }
 
 
@@ -74,10 +82,7 @@ class App extends Component {
                         query={this.state.query}
                         selectedCity={this.state.selectedCity} />
         </div>
-        <div>
-        <ListCharities  charityName={this.state.charityName}
-                        tagLine={this.state.tagLine} />
-        </div>
+        {this.state.charityList && <CharityList charities={this.state.charityList} />}
       </div>
     );
   }

@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const BUILD_DIR         = path.resolve(__dirname, 'public');
-const APP_DIR           = path.resolve(__dirname, 'app/javascript/components');
+const APP_DIR           = path.resolve(__dirname, 'client/src');
 
 const fontLoaderConfig = {
   name:  '/fonts/[name].[ext]',
@@ -19,7 +19,7 @@ if (!('NODE_ENV' in process.env)) require('dotenv').config();
 
 const config = {
   entry: {
-    main: `${APP_DIR}/index.js`,
+    main: `${APP_DIR}/index.jsx`,
     vendor: ['axios', 'react', 'react-dom', 'prop-types'],
   },
   output: {
