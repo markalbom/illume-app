@@ -1,3 +1,58 @@
 body {
   background-color: AliceBlue;
 }
+.heading {
+  text-align: center;
+}
+
+.charities-list-results {
+  align-content: center;
+  text-align: center;
+  margin: 15px auto;
+  padding: 20px;
+  background-color: rgb(147, 177, 226);
+  width: 40em;
+}
+
+.list-charity-name {
+  font-size: 20px;
+  line-height: 150%;
+  padding-bottom: 4px;
+}
+
+.list-charity-name:hover {
+  font-weight: bold;
+}
+
+.list-tag-line {
+  font-style: italic;
+  font-size: 1em;
+  padding-bottom: 5px;
+}
+
+.list-rating {
+  padding-top: 6px;
+  color: white;
+
+}
+
+.search-form {
+  padding: 20px;
+  text-align: center;
+  margin: 20px;
+}
+
+.search-form .form-prompt {
+  padding: 10px;
+  font-size: 20px;
+}
+
+.search-form .form-entry {
+  font-size: 23px;
+  text-align: center;
+}
+
+.search-form .form-submit-button {
+  margin: 20px;
+  font-size: 15px;
+}

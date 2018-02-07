@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SearchForm from './SearchForm';
 import CharityList from './CharityList';
+// import Footer from './Footer';
+// import CharityDetails from './CharityDetails';
 import './App.css';
 
+
+//global function unzipArray, takes in 2 params - array and field
+//unzipArray returns the reduced array and is also a function that takes in coll and item. this function runs:
+//coll is the key w/ value of [item[field]], and item is key w/ value of field
 const unzipArray = (arr, field) => {
   return arr.reduce((coll, item) => {
     coll[item[field]] =  item;
@@ -24,6 +30,7 @@ class App extends Component {
       query: '',
       selectedCity: '',
       charityList: null,
+      charity: null
     }
 
   this.handleInputChange = this.handleInputChange.bind(this);
@@ -61,6 +68,13 @@ class App extends Component {
     .catch(err => {debugger} )
   }
 
+  setCharity(id) {
+    // find the Charity by ID
+    // set in state
+    //if it is not null, render charity
+    //else, set state to null
+    console.log('brb settin charity')
+  }
 
 
 
@@ -69,20 +83,25 @@ class App extends Component {
 
 
   render() {
+    //deconstructing state.  instead of writing 'this.state.query', it now is just 'query', applied to every variable w stat
+    const { apiDataLoaded, query, selectedCity, charityList, charity } = this.state;
+
     return (
       <div>
-        <div>
-          <p>Hello and welcome to the charity app</p>
-          <p>Type in a cause and city below to start your giving journey</p>
+        <div className= "heading">
+          <p>Illume: shining a light on where your contribution goes</p>
+          <p>Type in a cause and city below to start giving wisely</p>
         </div>
         <div>
         <SearchForm     handleInputChange={this.handleInputChange}
                         handleSearchSubmit={this.handleSearchSubmit}
-                        apiDataLoaded={this.state.apiDataLoaded}
-                        query={this.state.query}
-                        selectedCity={this.state.selectedCity} />
+                        apiDataLoaded={apiDataLoaded}
+                        query={query}
+                        selectedCity={selectedCity} />
         </div>
-        {this.state.charityList && <CharityList charities={this.state.charityList} />}
+      {/*if charityList is present and a single charity is not present, render the charityList component*/}
+        {charityList && !charity && <CharityList charities={charityList} setCharity={this.setCharity} />}
+        {charity && <CharityDetails charity={charity} /> }
       </div>
     );
   }

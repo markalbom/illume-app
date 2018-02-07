@@ -6,8 +6,8 @@ const htmlTemplate       = require('html-webpack-template');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const BUILD_DIR         = path.resolve(__dirname, 'public');
-const APP_DIR           = path.resolve(__dirname, 'client/src');
+const BUILD_DIR         = path.resolve(__dirname, 'public'); //what is being fed out
+const APP_DIR           = path.resolve(__dirname, 'client/src'); //where they components / React live
 
 const fontLoaderConfig = {
   name:  '/fonts/[name].[ext]',
