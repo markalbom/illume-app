@@ -10,3 +10,4 @@ Technologies Used:  React on Rails, CSS.
 
 
 Acknowledgements:  As previously mentioned, Charity Navigator has been integral to this project, providing the data necessary for the application to function.  A special thank you to Matt Dragon, Director of Engineering for Charity Navigator, who graciously provided access to their content-platform API data - without which this application would have incredibly limited functionality.  Additionally, I would like to thank my instructors Jason Seminara and Kate Shiskina for their expertise and patience while helping me throughout the project.   
+updated readme
